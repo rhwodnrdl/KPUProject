@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <style>
+
+  html {
+    position: relative;
+    min-height: 100%;
+  }
+
+  body {
+    overflow-x: hidden;
+  }
+
+  body.sticky-footer {
+    margin-bottom: 56px;
+  }
+
+  body.sticky-footer .content-wrapper {
+    min-height: calc(100vh - 56px - 56px);
+  }
+
+  body.fixed-nav {
+    padding-top: 56px;
+  }
+
+  .content-wrapper {
+    min-height: calc(100vh - 56px);
+    padding-top: 1rem;
+  }
+
+  .scroll-to-top {
+    position: fixed;
+    right: 15px;
+    bottom: 3px;
+    display: none;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    color: white;
+    background: rgba(52, 58, 64, 0.5);
+    line-height: 45px;
+  }
+
+  .scroll-to-top:focus, .scroll-to-top:hover {
+    color: white;
+  }
+
+  .scroll-to-top:hover {
+    background: #343a40;
+  }
+
+  .scroll-to-top i {
+    font-weight: 800;
+  }
+
+  .smaller {
+    font-size: 0.7rem;
+  }
+
+  .o-hidden {
+    overflow: hidden !important;
+  }
+
+  .z-0 {
+    z-index: 0;
+  }
+
+  .z-1 {
+    z-index: 1;
+  }
+
+  #mainNav .navbar-collapse {
+    overflow: auto;
+    max-height: 75vh;
+  }
+
+  #mainNav .navbar-collapse .navbar-nav .nav-item .nav-link {
+    cursor: pointer;
+  }
+
+  #mainNav .navbar-collapse .navbar-sidenav .nav-link-collapse:after {
+    float: right;
+    content: '\f107';
+    font-family: 'FontAwesome';
+  }
+
+  #mainNav .navbar-collapse .navbar-sidenav .nav-link-collapse.collapsed:after {
+    content: '\f105';
+  }
+
+  #mainNav .navbar-collapse .navbar-sidenav .sidenav-second-level,
+  #mainNav .navbar-collapse .navbar-sidenav .sidenav-third-level {
+    padding-left: 0;
+  }
+
+  #mainNav .navbar-collapse .navbar-sidenav .sidenav-second-level > li > a,
+  #mainNav .navbar-collapse .navbar-sidenav .sidenav-third-level > li > a {
+    display: block;
+    padding: 0.5em 0;
+  }
+
+  #mainNav .navbar-collapse .navbar-sidenav .sidenav-second-level > li > a:focus, #mainNav .navbar-collapse .navbar-sidenav .sidenav-second-level > li > a:hover,
+  #mainNav .navbar-collapse .navbar-sidenav .sidenav-third-level > li > a:focus,
+  #mainNav .navbar-collapse .navbar-sidenav .sidenav-third-level > li > a:hover {
+    text-decoration: none;
+  }
+
+  #mainNav .navbar-collapse .navbar-sidenav .sidenav-second-level > li > a {
+    padding-left: 1em;
+  }
+
+  #mainNav .navbar-collapse .navbar-sidenav .sidenav-third-level > li > a {
+    padding-left: 2em;
+  }
+
+  #mainNav .navbar-collapse .sidenav-toggler {
+    display: none;
+  }
+
+  #mainNav .navbar-collapse .navbar-nav > .nav-item.dropdown > .nav-link {
+    position: relative;
+    min-width: 45px;
+  }
+
+  #mainNav .navbar-collapse .navbar-nav > .nav-item.dropdown > .nav-link:after {
+    float: right;
+    width: auto;
+    content: '\f105';
+    border: none;
+    font-family: 'FontAwesome';
+  }
+
+  #mainNav .navbar-collapse .navbar-nav > .nav-item.dropdown > .nav-link .indicator {
+    position: absolute;
+    top: 5px;
+    left: 21px;
+    font-size: 10px;
+  }
+
+  #mainNav .navbar-collapse .navbar-nav > .nav-item.dropdown.show > .nav-link:after {
+    content: '\f107';
+  }
+
+  #mainNav .navbar-collapse .navbar-nav > .nav-item.dropdown .dropdown-menu > .dropdown-item > .dropdown-message {
+    overflow: hidden;
+    max-width: none;
+    text-overflow: ellipsis;
+  }
+
+  @media (min-width: 992px) {
+    #mainNav .navbar-brand {
+      width: 250px;
+    }
+    #mainNav .navbar-collapse {
+      overflow: visible;
+      max-height: none;
+    }
+    #mainNav .navbar-collapse .navbar-sidenav {
+      position: absolute;
+      top: 0;
+      left: 0;
+      -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+      flex-direction: column;
+      margin-top: 56px;
+    }
+    #mainNav .navbar-collapse .navbar-sidenav > .nav-item {
+      width: 250px;
+      padding: 0;
+    }
+    #mainNav .navbar-collapse .navbar-sidenav > .nav-item > .nav-link {
+      padding: 1em;
+    }
+    #mainNav .navbar-collapse .navbar-sidenav > .nav-item .sidenav-second-level,
+    #mainNav .navbar-collapse .navbar-sidenav > .nav-item .sidenav-third-level {
+      padding-left: 0;
+      list-style: none;
+    }
+    #mainNav .navbar-collapse .navbar-sidenav > .nav-item .sidenav-second-level > li,
+    #mainNav .navbar-collapse .navbar-sidenav > .nav-item .sidenav-third-level > li {
+      width: 250px;
+    }
+    #mainNav .navbar-collapse .navbar-sidenav > .nav-item .sidenav-second-level > li > a,
+    #mainNav .navbar-collapse .navbar-sidenav > .nav-item .sidenav-third-level > li > a {
+      padding: 1em;
+    }
+    #mainNav .navbar-collapse .navbar-sidenav > .nav-item .sidenav-second-level > li > a {
+      padding-left: 2.75em;
+    }
+    #mainNav .navbar-collapse .navbar-sidenav > .nav-item .sidenav-third-level > li > a {
+      padding-left: 3.75em;
+    }
+    #mainNav .navbar-collapse .navbar-nav > .nav-item.dropdown > .nav-link {
+      min-width: 0;
+    }
+    #mainNav .navbar-collapse .navbar-nav > .nav-item.dropdown > .nav-link:after {
+      width: 24px;
+      text-align: center;
+    }
+    #mainNav .navbar-collapse .navbar-nav > .nav-item.dropdown .dropdown-menu > .dropdown-item > .dropdown-message {
+      max-width: 300px;
+    }
+  }
+
+  #mainNav.fixed-top .sidenav-toggler {
+    display: none;
+  }
+
+  @media (min-width: 992px) {
+    #mainNav.fixed-top .navbar-sidenav {
+      height: calc(100vh - 112px);
+    }
+    #mainNav.fixed-top .sidenav-toggler {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: flex;
+      -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+      flex-direction: column;
+      margin-top: calc(100vh - 56px);
+    }
+    #mainNav.fixed-top .sidenav-toggler > .nav-item {
+      width: 250px;
+      padding: 0;
+    }
+    #mainNav.fixed-top .sidenav-toggler > .nav-item > .nav-link {
+      padding: 1em;
+    }
+  }
+
+  #mainNav.fixed-top.navbar-dark .sidenav-toggler {
+    background-color: #212529;
+  }
+
+  #mainNav.fixed-top.navbar-dark .sidenav-toggler a i {
+    color: #adb5bd;
+  }
+
+  #mainNav.fixed-top.navbar-light .sidenav-toggler {
+    background-color: #dee2e6;
+  }
+
+  #mainNav.fixed-top.navbar-light .sidenav-toggler a i {
+    color: rgba(0, 0, 0, 0.5);
+  }
+
+  body.sidenav-toggled #mainNav.fixed-top .sidenav-toggler {
+    overflow-x: hidden;
+    width: 55px;
+  }
+
+  body.sidenav-toggled #mainNav.fixed-top .sidenav-toggler .nav-item,
+  body.sidenav-toggled #mainNav.fixed-top .sidenav-toggler .nav-link {
+    width: 55px !important;
+  }
+
+  body.sidenav-toggled #mainNav.fixed-top #sidenavToggler i {
+    -webkit-transform: scaleX(-1);
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: FlipH;
+    -ms-filter: 'FlipH';
+  }
+
+  #mainNav.static-top .sidenav-toggler {
+    display: none;
+  }
+
+  @media (min-width: 992px) {
+    #mainNav.static-top .sidenav-toggler {
+      display: flex;
+    }
+  }
+
+  body.sidenav-toggled #mainNav.static-top #sidenavToggler i {
+    -webkit-transform: scaleX(-1);
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: FlipH;
+    -ms-filter: 'FlipH';
+  }
+
+  .content-wrapper {
+    overflow-x: hidden;
+    background: white;
+  }
+
+  @media (min-width: 992px) {
+    .content-wrapper {
+      margin-left: 250px;
+    }
+  }
+
+  #sidenavToggler i {
+    font-weight: 800;
+  }
+
+  .navbar-sidenav-tooltip.show {
+    display: none;
+  }
+
+  @media (min-width: 992px) {
+    body.sidenav-toggled .content-wrapper {
+      margin-left: 55px;
+    }
+  }
+
+  body.sidenav-toggled .navbar-sidenav {
+    width: 55px;
+  }
+
+  body.sidenav-toggled .navbar-sidenav .nav-link-text {
+    display: none;
+  }
+
+  body.sidenav-toggled .navbar-sidenav .nav-item,
+  body.sidenav-toggled .navbar-sidenav .nav-link {
+    width: 55px !important;
+  }
+
+  body.sidenav-toggled .navbar-sidenav .nav-item:after,
+  body.sidenav-toggled .navbar-sidenav .nav-link:after {
+    display: none;
+  }
+
+  body.sidenav-toggled .navbar-sidenav .nav-item {
+    white-space: nowrap;
+  }
+
+  body.sidenav-toggled .navbar-sidenav-tooltip.show {
+    display: flex;
+  }
+
+  #mainNav.navbar-dark .navbar-collapse .navbar-sidenav .nav-link-collapse:after {
+    color: #868e96;
+  }
+
+  #mainNav.navbar-dark .navbar-collapse .navbar-sidenav > .nav-item > .nav-link {
+    color: #868e96;
+  }
+
+  #mainNav.navbar-dark .navbar-collapse .navbar-sidenav > .nav-item > .nav-link:hover {
+    color: #adb5bd;
+  }
+
+  #mainNav.navbar-dark .navbar-collapse .navbar-sidenav > .nav-item .sidenav-second-level > li > a,
+  #mainNav.navbar-dark .navbar-collapse .navbar-sidenav > .nav-item .sidenav-third-level > li > a {
+    color: #868e96;
+  }
+
+  #mainNav.navbar-dark .navbar-collapse .navbar-sidenav > .nav-item .sidenav-second-level > li > a:focus, #mainNav.navbar-dark .navbar-collapse .navbar-sidenav > .nav-item .sidenav-second-level > li > a:hover,
+  #mainNav.navbar-dark .navbar-collapse .navbar-sidenav > .nav-item .sidenav-third-level > li > a:focus,
+  #mainNav.navbar-dark .navbar-collapse .navbar-sidenav > .nav-item .sidenav-third-level > li > a:hover {
+    color: #adb5bd;
+  }
+
+  #mainNav.navbar-dark .navbar-collapse .navbar-nav > .nav-item.dropdown > .nav-link:after {
+    color: #adb5bd;
+  }
+
+  @media (min-width: 992px) {
+    #mainNav.navbar-dark .navbar-collapse .navbar-sidenav {
+      background: #343a40;
+    }
+    #mainNav.navbar-dark .navbar-collapse .navbar-sidenav li.active a {
+      color: white !important;
+      background-color: #495057;
+    }
+    #mainNav.navbar-dark .navbar-collapse .navbar-sidenav li.active a:focus, #mainNav.navbar-dark .navbar-collapse .navbar-sidenav li.active a:hover {
+      color: white;
+    }
+    #mainNav.navbar-dark .navbar-collapse .navbar-sidenav > .nav-item .sidenav-second-level,
+    #mainNav.navbar-dark .navbar-collapse .navbar-sidenav > .nav-item .sidenav-third-level {
+      background: #343a40;
+    }
+  }
+
+  #mainNav.navbar-light .navbar-collapse .navbar-sidenav .nav-link-collapse:after {
+    color: rgba(0, 0, 0, 0.5);
+  }
+
+  #mainNav.navbar-light .navbar-collapse .navbar-sidenav > .nav-item > .nav-link {
+    color: rgba(0, 0, 0, 0.5);
+  }
+
+  #mainNav.navbar-light .navbar-collapse .navbar-sidenav > .nav-item > .nav-link:hover {
+    color: rgba(0, 0, 0, 0.7);
+  }
+
+  #mainNav.navbar-light .navbar-collapse .navbar-sidenav > .nav-item .sidenav-second-level > li > a,
+  #mainNav.navbar-light .navbar-collapse .navbar-sidenav > .nav-item .sidenav-third-level > li > a {
+    color: rgba(0, 0, 0, 0.5);
+  }
+
+  #mainNav.navbar-light .navbar-collapse .navbar-sidenav > .nav-item .sidenav-second-level > li > a:focus, #mainNav.navbar-light .navbar-collapse .navbar-sidenav > .nav-item .sidenav-second-level > li > a:hover,
+  #mainNav.navbar-light .navbar-collapse .navbar-sidenav > .nav-item .sidenav-third-level > li > a:focus,
+  #mainNav.navbar-light .navbar-collapse .navbar-sidenav > .nav-item .sidenav-third-level > li > a:hover {
+    color: rgba(0, 0, 0, 0.7);
+  }
+
+  #mainNav.navbar-light .navbar-collapse .navbar-nav > .nav-item.dropdown > .nav-link:after {
+    color: rgba(0, 0, 0, 0.5);
+  }
+
+  @media (min-width: 992px) {
+    #mainNav.navbar-light .navbar-collapse .navbar-sidenav {
+      background: #f8f9fa;
+    }
+    #mainNav.navbar-light .navbar-collapse .navbar-sidenav li.active a {
+      color: #000 !important;
+      background-color: #e9ecef;
+    }
+    #mainNav.navbar-light .navbar-collapse .navbar-sidenav li.active a:focus, #mainNav.navbar-light .navbar-collapse .navbar-sidenav li.active a:hover {
+      color: #000;
+    }
+    #mainNav.navbar-light .navbar-collapse .navbar-sidenav > .nav-item .sidenav-second-level,
+    #mainNav.navbar-light .navbar-collapse .navbar-sidenav > .nav-item .sidenav-third-level {
+      background: #f8f9fa;
+    }
+  }
+
+  .card-body-icon {
+    position: absolute;
+    z-index: 0;
+    top: -25px;
+    right: -25px;
+    font-size: 5rem;
+    -webkit-transform: rotate(15deg);
+    -ms-transform: rotate(15deg);
+    transform: rotate(15deg);
+  }
+
+  @media (min-width: 576px) {
+    .card-columns {
+      column-count: 1;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .card-columns {
+      column-count: 2;
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .card-columns {
+      column-count: 2;
+    }
+  }
+
+  .card-login {
+    max-width: 25rem;
+  }
+
+  .card-register {
+    max-width: 40rem;
+  }
+
+  footer.sticky-footer {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 56px;
+    background-color: #e9ecef;
+    line-height: 55px;
+  }
+
+  @media (min-width: 992px) {
+    footer.sticky-footer {
+      width: calc(100% - 250px);
+    }
+  }
+
+  @media (min-width: 992px) {
+    body.sidenav-toggled footer.sticky-footer {
+      width: calc(100% - 55px);
+    }
+  }
+
+  .col-lg-8 {
+    margin:0 auto;
+  }
+  </style>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>welcome</title>
+
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css">
+  <script src="//code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js"></script>
+
+  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3f884a2e09fd7b42e025c4c441c459d8"></script>
+
+</head>
+
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+  <!-- Navigation-->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+    <a class="navbar-brand" style="color: white; font-weight: bold; font-size: 20pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FEMS</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive" style="text-align: center">
+      <ul class="navbar-sidenav navbar-nav" id="exampleAccordion">
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+          <a class="nav-link">
+            <img src="https://image.flaticon.com/icons/svg/149/149072.svg" width="150" heigth="100" border="10" align="center">
+            <i class="fa fa-fw fa-dashboard"></i>
+            <span class="nav-link-text" style="color: white">
+              <br><br>
+              admin님, 안녕하세요
+            </span>
+          </a>
+        </li>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+          <a class="nav-link" href="/welcome">
+            <i class="fa fa-fw fa-table"></i>
+            <span class="nav-link-text">Workspace</span>
+          </a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
+            <i class="fa fa-fw fa-sign-out"></i>Logout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div class="content-wrapper">
+    <div class="container-fluid">
+
+      <div class="col-lg-12">
+      <div class="card mb-3">
+        <div class="card-header">
+          <i class="fa fa-area-chart"></i>Workspace</div>
+        <div class="card-body">
+          <div id="map" style="width:100%;height:600px;"></div>
+        </div>
+        <!--<div class="card-footer small text-muted">Real-Time Update</div>-->
+      </div>
+      </div>
+
+    </div>
+    <!-- /.container-fluid-->
+    <!-- /.content-wrapper-->
+    <footer class="sticky-footer">
+      <div class="container">
+        <div class="text-center">
+          <small>Copyright © JaeWook Ko 2018</small>
+        </div>
+      </div>
+    </footer>
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fa fa-angle-up"></i>
+    </a>
+    <!-- Logout Modal-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">로그아웃</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">'확인' 버튼을 누르시면 로그아웃됩니다.</div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
+            <a class="btn btn-primary" href="/auth/logout">확인</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+
+  var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+      mapOption = {
+          center: new daum.maps.LatLng(37.340211, 126.733533), // 지도의 중심좌표
+          level: 2 // 지도의 확대 레벨
+      };
+
+  var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+  // 마커를 표시할 위치입니다   , E동
+  var position_ws1 =  new daum.maps.LatLng(37.3397804, 126.7347731);
+
+  // 마커를 생성합니다
+  var marker_ws1 = new daum.maps.Marker({
+    position: position_ws1,
+    clickable: true // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정합니다
+  });
+
+  // 마커를 표시할 위치입니다   , G동
+  var position_ws2 =  new daum.maps.LatLng(37.3402709, 126.7345800);
+
+  // 마커를 생성합니다
+  var marker_ws2 = new daum.maps.Marker({
+    position: position_ws2,
+    clickable: true // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정합니다
+  });
+
+  // 마커를 표시할 위치입니다   , 입학처
+  var position_ws3 =  new daum.maps.LatLng(37.3397378, 126.7334642);
+
+  // 마커를 생성합니다
+  var marker_ws3 = new daum.maps.Marker({
+    position: position_ws3,
+    clickable: true // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정합니다
+  });
+
+  // 마커를 지도에 표시합니다.
+  marker_ws1.setMap(map);
+  marker_ws2.setMap(map);
+  marker_ws3.setMap(map);
+
+  // 마커에 클릭이벤트를 등록합니다
+  daum.maps.event.addListener(marker_ws1, 'click', function() {
+
+    settingAjax('http://localhost:3003/ws1_setting_lpg', "1000");  // lpg는 무조건 1000ppm 이하여야 함(설정 x)
+    location.href="http://localhost:3003/dashboard/sectionA";
+  });
+
+  daum.maps.event.addListener(marker_ws2, 'click', function() {
+
+    settingAjax('http://localhost:3003/ws2_setting_lpg', "1000");  // lpg는 무조건 1000ppm 이하여야 함(설정 x)
+    location.href="http://localhost:3003/dashboard/sectionB";
+  });
+
+  daum.maps.event.addListener(marker_ws3, 'click', function() {
+
+    settingAjax('http://localhost:3003/ws3_setting_lpg', "1000");  // lpg는 무조건 1000ppm 이하여야 함(설정 x)
+    location.href="http://localhost:3003/dashboard/sectionC";
+  });
+
+  // 마커에 커서가 오버됐을 때 마커 위에 표시할 인포윈도우를 생성합니다
+  var iwContent_ws1 = '<div style="padding:5px; width:144px; height:35px; text-align:center;">Workspace1</div>'; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+
+  // 마커에 커서가 오버됐을 때 마커 위에 표시할 인포윈도우를 생성합니다
+  var iwContent_ws2 = '<div style="padding:5px; width:144px; height:35px; text-align:center;">Workspace2</div>'; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+
+  // 마커에 커서가 오버됐을 때 마커 위에 표시할 인포윈도우를 생성합니다
+  var iwContent_ws3 = '<div style="padding:5px; width:144px; height:35px; text-align:center;">Workspace3</div>'; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+
+  // 인포윈도우를 생성합니다
+  var infowindow_ws1 = new daum.maps.InfoWindow({
+    content : iwContent_ws1
+  });
+
+  // 인포윈도우를 생성합니다
+  var infowindow_ws2 = new daum.maps.InfoWindow({
+    content : iwContent_ws2
+  });
+
+  // 인포윈도우를 생성합니다
+  var infowindow_ws3 = new daum.maps.InfoWindow({
+    content : iwContent_ws3
+  });
+
+  // 마커에 마우스오버 이벤트를 등록합니다
+  daum.maps.event.addListener(marker_ws1, 'mouseover', function() {
+    // 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
+    infowindow_ws1.open(map, marker_ws1);
+  });
+
+  // 마커에 마우스오버 이벤트를 등록합니다
+  daum.maps.event.addListener(marker_ws2, 'mouseover', function() {
+    // 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
+    infowindow_ws2.open(map, marker_ws2);
+  });
+
+  // 마커에 마우스오버 이벤트를 등록합니다
+  daum.maps.event.addListener(marker_ws3, 'mouseover', function() {
+    // 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
+    infowindow_ws3.open(map, marker_ws3);
+  });
+
+  // 마커에 마우스아웃 이벤트를 등록합니다
+  daum.maps.event.addListener(marker_ws1, 'mouseout', function() {
+    // 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
+    infowindow_ws1.close();
+  });
+
+  // 마커에 마우스아웃 이벤트를 등록합니다
+  daum.maps.event.addListener(marker_ws2, 'mouseout', function() {
+    // 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
+    infowindow_ws2.close();
+  });
+
+  // 마커에 마우스아웃 이벤트를 등록합니다
+  daum.maps.event.addListener(marker_ws3, 'mouseout', function() {
+    // 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
+    infowindow_ws3.close();
+  });
+
+  // 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
+  var mapTypeControl = new daum.maps.MapTypeControl();
+
+  // 지도에 컨트롤을 추가해야 지도위에 표시됩니다
+  // daum.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
+  map.addControl(mapTypeControl, daum.maps.ControlPosition.TOPRIGHT);
+
+  // 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
+  var zoomControl = new daum.maps.ZoomControl();
+  map.addControl(zoomControl, daum.maps.ControlPosition.RIGHT);
+
+  function settingAjax(url, data){
+    var data = {'setting' : data};
+
+    data = JSON.stringify(data);
+
+    console.log(data);
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', url);
+    xhr.setRequestHeader('Content-Type', "application/json");
+    xhr.send(data);
+
+    xhr.addEventListener('load', function() {
+      var result = JSON.parse(xhr.responseText);
+      if(result.result !== "ok") {
+        return;
+      }
+    });
+  } // 임계값 설정
+
+  </script>
+
+</body>
+
+</html>
